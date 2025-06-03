@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import Link from "next/link";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -23,11 +24,21 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className="m-0 p-0 bg-[rgba(250,_250,_250)]">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased m-0 p-0 bg-[rgba(250,_250,_250)]`}
       >
-        {children}
+        <div className="max-w-[600px] min-h-screen mx-auto my-0 bg-white py-0 px-[15px] shadow-[0px_7px_29px_0px_rgba(100,_100,_111,_0.2)]">
+          <header className="h-[60px] font-bold text-[18px] leading-[60px]">
+            <Link href={'/'} className="text-black no-underline cursor-pointer">📚 ONEBITE BOOKS</Link>
+          </header>
+          <main className="pt-[10px]">
+            {children}
+          </main>
+          <footer className="py-[100px] px-0 text-gray-400">
+            제작 @JSE
+          </footer>
+        </div>
       </body>
     </html>
   );
