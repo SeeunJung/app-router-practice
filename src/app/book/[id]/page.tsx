@@ -1,8 +1,16 @@
+import { notFound } from "next/navigation";
+
+export function generateStaticParams(){
+  return [{id: "1"}, {id: "2"}, {id: "3"}];
+}
+
 export default async function Page({params}:
-  {params: {id: string | string[]}}){
-  
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/${params.id}`);
+  {params: Promise<{id: string | string[]}>}){
+  const { id } = await params;
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/${id}`);
   if(!response.ok){
+    if(response.status === 404)
+      notFound();
     return <div>Error Occurred</div>
   }
   const book = await response.json();

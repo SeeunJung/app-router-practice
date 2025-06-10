@@ -1,9 +1,10 @@
 import BookItem from "@/components/book-item";
-import books from "@/mock/books.json"
 import { BookData } from "@/types";
 
 async function AllBooks(){
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book`);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book`,
+    {cache: "force-cache"}
+  );
   if(!response.ok){
     return <div>Error Occurred</div>
   }
@@ -18,7 +19,9 @@ async function AllBooks(){
 }
 
 async function RecoBooks() {
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/random`);
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book/random`,
+    {next: {revalidate: 3}}
+  );
   if(!response.ok){
     return <div>Error Occurred</div>
   }

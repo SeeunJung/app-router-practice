@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
+import { BookData } from "@/types";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -12,6 +13,26 @@ const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
 });
+
+async function Footer(){
+  const response = await fetch(`${process.env.NEXT_PUBLIC_API_SERVER_URL}/book`,
+    {cache: "force-cache"}
+  );
+  if(!response.ok){
+    return <footer className="py-[100px] px-0 text-gray-400">
+            제작 @JSE
+          </footer>
+  }
+  const books: BookData[] = await response.json();
+  const bookCount = books.length;
+
+  return(
+    <footer>
+      <div>제작 @JSE</div>
+      <div>{bookCount}개의 도서가 등록되어 있습니다.</div>
+    </footer>
+  )
+}
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -35,9 +56,7 @@ export default function RootLayout({
           <main className="pt-[10px]">
             {children}
           </main>
-          <footer className="py-[100px] px-0 text-gray-400">
-            제작 @JSE
-          </footer>
+          
         </div>
       </body>
     </html>
