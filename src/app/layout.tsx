@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import Link from "next/link";
 import { BookData } from "@/types";
+import { ReactNode } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -41,8 +42,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  modal,
 }: Readonly<{
   children: React.ReactNode;
+  modal: ReactNode;
 }>) {
   return (
     <html lang="en" className="m-0 p-0 bg-[rgba(250,_250,_250)]">
@@ -56,8 +59,10 @@ export default function RootLayout({
           <main className="pt-[10px]">
             {children}
           </main>
-          
+          <Footer />
         </div>
+        {modal}
+        <div id="modal-root"></div>
       </body>
     </html>
   );

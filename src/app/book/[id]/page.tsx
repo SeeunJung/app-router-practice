@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { ReviewData } from "@/types";
 import ReviewItem from "@/components/review-item";
 import ReviewEditor from "@/components/review-editor";
+import Image from "next/image";
 
 export function generateStaticParams(){
   return [{id: "1"}, {id: "2"}, {id: "3"}];
@@ -20,7 +21,7 @@ async function BookDetail({bookId}:{bookId:string}){
   return(
     <section className="flex flex-col gap-[10px]">
       <div style={{ backgroundImage: `linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url(${coverImgUrl})`}} className="flex relative justify-center p-[20px] bg-center bg-no-repeat bg-cover">
-        <img src={coverImgUrl} alt={title} className="z-1 max-h-[350px] h-full" />
+        <Image src={coverImgUrl} alt={title} width={240} height={300} className="z-1 max-h-[350px] h-full" />
       </div>
       <div className="text-xl font-bold">{title}</div>
       <div className="text-gray-600">{subTitle}</div>
